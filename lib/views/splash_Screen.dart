@@ -19,6 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             color: Maincolor,
+            child: Center(
+              child: Text('Say Goodbye to a \nfuel station!',style: TextStyle(fontSize: 38,color: Whitecolr,fontWeight: FontWeight.bold),),
+            ),
           ),
          const Column(
             mainAxisAlignment: MainAxisAlignment.end,
