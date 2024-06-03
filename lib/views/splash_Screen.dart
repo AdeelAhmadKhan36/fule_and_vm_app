@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
+import 'package:fule_and_vm_app/views/my_orderScreen.dart';
 import 'package:fule_and_vm_app/widgets/custom_button.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,11 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text('Say Goodbye to a \nfuel station!',style: TextStyle(fontSize: 38,color: Whitecolr,fontWeight: FontWeight.bold),),
             ),
           ),
-         const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.end,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              customButton(bottontext: "Sign in", bottoncolr: Whitecolr,bottontextcolr: blackcolr,),
+              customButton(bottontext: "Sign in", bottoncolr: Whitecolr,bottontextcolr: blackcolr,onpressed:() {Get.to(MyOrder());},),
               customButton(bottontext: "Create Account",bottoncolr: Whitecolr,bottontextcolr: blackcolr,),
               customButton(bottontext: "Create Account", bottoncolr: lightblackcolr,bottontextcolr: Whitecolr,),  
             ],
