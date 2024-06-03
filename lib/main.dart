@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fule_and_vm_app/hom.dart';
 import 'package:fule_and_vm_app/views/splash_Screen.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       
       ),
-      home: SplashScreen()  ,
+      home: HomeScreen()  ,
     );
   }
 }
