@@ -26,3 +26,5 @@ const kmycolor=Color(0xFF5E17EB);
 const kGreen=Colors.green;
 const kprimary_colors=Color(0xFF501DB4);//This is color mainly i have used
 const kdrawer=Color(0xFF17203A);
+
+

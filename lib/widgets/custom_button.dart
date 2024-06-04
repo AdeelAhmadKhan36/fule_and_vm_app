@@ -3,17 +3,17 @@ import 'package:fule_and_vm_app/const.dart';
 import 'package:get/get.dart';
 
 class customButton extends StatelessWidget {
-  const customButton({super.key, this.bottontext,this.bottoncolr, this.bottontextcolr});
+  const customButton({super.key, this.bottontext,this.bottoncolr, this.bottontextcolr, this.onpressed});
   final bottontext;
   final bottoncolr;
   final bottontextcolr;
-
+  final onpressed;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print('handler for login');
-      },
+      onTap: 
+     onpressed,
+      
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Container(
