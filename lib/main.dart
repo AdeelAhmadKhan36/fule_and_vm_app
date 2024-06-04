@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fule_and_vm_app/hom.dart';
 import 'package:fule_and_vm_app/views/splash_Screen.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -38,7 +38,7 @@ class _MyOrderState extends State<MyOrder> {
               padding: const EdgeInsets.all(12.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: bluecolr, borderRadius: BorderRadius.circular(14)),
+                    color: bluecolor, borderRadius: BorderRadius.circular(14)),
                 height: 250,
                 width: MediaQuery.of(context).size.width,
                 child: Center(child: Text('Google map')),
