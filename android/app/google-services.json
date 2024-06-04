@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "865454326616",
+    "project_id": "fuel-deliveryapp",
+    "storage_bucket": "fuel-deliveryapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865454326616:android:edbcd7ee266acce3151b2d",
+        "android_client_info": {
+          "package_name": "com.example.fule_and_vm_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn6Jm17IuiSVAoZOin9J2kVxERA1O8Hus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
