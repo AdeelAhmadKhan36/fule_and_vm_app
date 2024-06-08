@@ -12,7 +12,7 @@ class ReusableText extends StatelessWidget {
 
     this.fontSize = 16.0,
     this.fontWeight = FontWeight.normal,
-    style,
+    style, required Color color,
   });
 
   @override

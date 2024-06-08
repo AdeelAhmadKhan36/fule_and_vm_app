@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
-import 'package:fule_and_vm_app/views/common/reuse_able_text.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:fule_and_vm_app/widgets/appbar.dart';
 import 'package:fule_and_vm_app/widgets/mapwithSearchbar.dart';
+import 'package:fule_and_vm_app/views/common/reuse_able_text.dart';
+import 'package:fule_and_vm_app/views/fule_dilevery/Order_Conformation_Scree.dart';
+import 'views/vehicle_maintenance/vehicle_main.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class Home_Screen extends StatefulWidget {
+
+  Home_Screen({Key? key}): super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<Home_Screen> createState() => _Home_ScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _Home_ScreenState extends State<Home_Screen> {
   int? selectedQuantity;
   DateTime? selectedDate;
   String? selectedTimeSlot1;
   String? selectedTimeSlot2;
+  String? selectedFuelType;
 
   final List<int> quantities = List.generate(10, (index) => index + 1);
 
@@ -31,6 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedDate = picked;
       });
     }
+  }
+
+  bool get isOrderButtonEnabled {
+    return selectedFuelType != null &&
+        selectedQuantity != null &&
+        selectedDate != null &&
+        (selectedTimeSlot1 != null || selectedTimeSlot2 != null);
   }
 
   @override
@@ -55,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Heading(
-                text: 'Welcome Adeel Ahmad',
+                text: 'Welcome Adeel',
                 color: Color(blackcolr.value),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -70,8 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(width: 4),
                   ReusableText(
-                    text: "Mansehra KPK Pakistan",
-                    style: const TextStyle(color: Colors.grey),
+                    text:
+                    "Location",
+                    color: Colors.grey,
                   ),
                 ],
               ),
@@ -84,69 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Choose the Option',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          OptionIcon(
-                            icon: Icons.electric_car,
-                            title: "Maintenance",
-                            color: Color(Maincolor.value),
-                            onPressed: () {
-                              print("Maintenance is Pressed");
-                            },
-                          ),
-                          OptionIcon(
-                            icon: Icons.local_gas_station_outlined,
-                            title: "Petrol",
-                            color: Color(Whitecolr.value),
-                            onPressed: () {},
-                          ),
-                          OptionIcon(
-                            icon: Icons.bike_scooter,
-                            title: "Diesel",
-                            color: Color(Whitecolr.value),
-                            onPressed: () {},
-                          ),
-                          OptionIcon(
-                            icon: Icons.directions_walk,
-                            title: "Engine Oil",
-                            color: Color(Whitecolr.value),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                height: 210,
-                width: 400,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(color: Color(kGrey.value)),
                   boxShadow: [
                     const BoxShadow(
                       color: Colors.black26,
@@ -165,9 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Container(
@@ -184,13 +133,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 builder: (BuildContext builder) {
                                   return Container(
                                     height: MediaQuery.of(context)
-                                            .copyWith()
-                                            .size
-                                            .height /
+                                        .copyWith()
+                                        .size
+                                        .height /
                                         3,
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           'Select Quantity (Lts)',
@@ -203,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             itemCount: quantities.length,
                                             itemBuilder: (context, index) {
                                               final quantity =
-                                                  quantities[index];
+                                              quantities[index];
                                               return ListTile(
                                                 title: Text('$quantity Liters'),
                                                 onTap: () {
@@ -234,21 +183,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Container(
                           width: 160,
                           height: 130,
                           decoration: BoxDecoration(
                             color: Color(Whitecolr.value),
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.black)
+                            border: Border.all(color: Colors.black),
                           ),
                           child: InkWell(
                             onTap: () {
-                              // Show date picker
-
                               _selectDate(context);
                             },
                             child: Center(
@@ -270,7 +215,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(16.0),
@@ -298,9 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Container(
@@ -327,7 +269,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 value: value,
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 30,left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 30, left: 20),
                                     child: Text(
                                       value,
                                       style: const TextStyle(
@@ -342,9 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }).toList(),
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         Container(
                           width: 160,
                           height: 80,
@@ -370,7 +311,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 value: value,
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 30,left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 30, left: 20),
                                     child: Text(
                                       value,
                                       style: const TextStyle(
@@ -387,10 +329,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-
                   ],
                 ),
               ),
+              const SizedBox(height: 10),
+              InkWell(
+                onTap: isOrderButtonEnabled
+                    ? () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OrderScreen(
+                          selectedFuelType: selectedFuelType!,
+                          selectedQuantity: selectedQuantity!,
+                          selectedDate: selectedDate!,
+                          selectedTimeSlot:
+                          selectedTimeSlot1 ?? selectedTimeSlot2!,
+                        )),
+                  );
+                }
+                    : null,
+                child: Container(
+                  height: 60,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    color: Color(kPrimaryColor.value),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                      child: Text(
+                        isOrderButtonEnabled
+                            ? "Order"
+                            : "Please select all required items to proceed",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: isOrderButtonEnabled
+                              ? Colors.white
+                              : Colors.white,
+                        ),
+                      )),
+                ),
+              )
             ],
           ),
         ),
@@ -422,7 +402,9 @@ class OptionIcon extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Color(blackcolr.value)),
+          border: title == 'Maintenance'
+              ? null
+              : Border.all(color: Color(blackcolr.value)),
           boxShadow: [
             const BoxShadow(
               color: Colors.black26,
