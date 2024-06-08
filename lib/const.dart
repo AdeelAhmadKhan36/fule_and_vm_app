@@ -5,8 +5,9 @@ const Maincolor = Colors.amber;
 const Whitecolr = Colors.white;
 const blackcolr = Colors.black;
 const lightblackcolr = Colors.black12;
-const kdeepgrey=Color(0xFFFF8733);
+const kPrimaryColor=Color(0xFFFF8733);
 const bluecolor=Colors.blue;
+const kDark=Colors.black;
 
 /////////////
 
