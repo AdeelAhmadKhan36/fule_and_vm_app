@@ -8,6 +8,11 @@ const lightblackcolr = Colors.black12;
 const kPrimaryColor=Color(0xFFFF8733);
 const bluecolor=Colors.blue;
 const kDark=Colors.black;
+const kDarkBlue = Colors.indigo;
+const kLight = Colors.white;
+const kPrimaryColors = Colors.blueAccent;
+const kLightPink = Colors.pinkAccent;
+const kLightGreen = Colors.lightGreen;
 
 /////////////
 
@@ -18,7 +23,6 @@ const klightGrey=Color(0xFFD3D3D3);
 const kGrey=Color(0x47D8D7D7);
 const kOrange=Colors.deepOrange;
 const kLightBlue=Colors.lightBlue;
-const kDarkBlue=Color(0xff1c153e);
 const kPurple=Colors.purple;
 const kblue=Colors.blue;
 const klightgreen=Colors.greenAccent;

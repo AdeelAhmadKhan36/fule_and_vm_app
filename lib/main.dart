@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/controllers/SignUp_Provider.dart';
 import 'package:fule_and_vm_app/controllers/login_provider.dart';
 import 'package:fule_and_vm_app/home_screen.dart';
+import 'package:fule_and_vm_app/views/Admin/admin_dashboard.dart';
 import 'package:fule_and_vm_app/views/Location_Screen.dart';
 import 'package:fule_and_vm_app/views/auth/login_screen.dart';
 import 'package:fule_and_vm_app/views/splash_Screen.dart';

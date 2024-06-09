@@ -45,6 +45,7 @@ dependencies:
   geocoding: ^3.0.0
   google_maps_flutter: ^2.2.5
   flutter_easyloading: ^3.0.5
+  image_picker: ^0.8.4+3
 
 
   #Firebase
