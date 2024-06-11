@@ -48,6 +48,7 @@ dependencies:
   image_picker: ^0.8.4+3
   webview_flutter: ^3.0.0
   smooth_page_indicator: ^1.0.0
+  shared_preferences: ^2.2.2
 
 
   #Firebase
@@ -84,7 +85,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - Assets/Images/
+    - Assets/Images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

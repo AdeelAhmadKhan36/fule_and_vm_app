@@ -81,7 +81,7 @@ class _UserSignUp_ScreenState extends State<UserSignUp_Screen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Heading(
-                    text: 'Welcome to JobHub!',
+                    text: 'Welcome to My App',
                     color: Color(kDark.value),
               
                     fontSize: 30,

@@ -19,7 +19,7 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: RoundedAppBar(title: Text(
-        "Maintenance Screen",
+        "Vehicle Maintenance",
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),),
       backgroundColor: primaryColor,
@@ -294,7 +294,7 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
                       SingleChildScrollView(
                         child: Container(
                           width: 70,
-                          height: 30,
+                          height: 20,
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(50)

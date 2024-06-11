@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
+import 'package:fule_and_vm_app/views/Admin/fuel_request.dart';
 import 'package:fule_and_vm_app/views/common/reuse_able_text.dart';
 import 'package:fule_and_vm_app/widgets/appbar.dart';
 import 'package:get/get.dart';
 class ServiceProviderDashboard extends StatelessWidget {
+
+  final adminui=  FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +94,7 @@ class ServiceProviderDashboard extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  // Navigate to Fuel Delivery Requests Screen
+                                  Get.to(FuelRequestScreen(currentUid:"adminui",));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: kLightPink,

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class ReusableText extends StatelessWidget {
   final String text;
-
   final double fontSize;
   final FontWeight fontWeight;
+  final Color color;
 
   ReusableText({
     required this.text,
-
     this.fontSize = 16.0,
     this.fontWeight = FontWeight.normal,
-    style, required Color color,
+    required this.color,
   });
 
   @override
@@ -22,6 +22,7 @@ class ReusableText extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: fontSize,
         fontWeight: fontWeight,
+        color: color,
       ),
     );
   }
