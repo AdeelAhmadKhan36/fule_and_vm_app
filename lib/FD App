@@ -1,0 +1,107 @@
+//LOcation Screen
+import 'package:flutter/material.dart';
+import 'package:fule_and_vm_app/home_screen.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:geocoding/geocoding.dart'; // Import geocoding package
+
+
+class LocationScreen extends StatefulWidget {
+  @override
+  _LocationScreenState createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  late WebViewController _webViewController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Select Your Location'),
+      ),
+      body: WebView(
+        initialUrl: 'https://www.google.com/maps',
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (controller) {
+          _webViewController = controller;
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Position? currentPosition = await _determinePosition();
+          if (currentPosition != null) {
+            String locationName = await _getLocationName(currentPosition);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Get.off(Home_Screen(), arguments: {
+                'position': currentPosition,
+                'name': locationName,
+              });
+            });
+          } else {
+            _showErrorDialog();
+          }
+        },
+        child: Icon(Icons.check),
+      ),
+    );
+  }
+
+  Future<Position?> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return null;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      return null;
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return null;
+      }
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  Future<String> _getLocationName(Position position) async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+    if (placemarks.isNotEmpty) {
+      return '${placemarks.first.locality}, ${placemarks.first.country}';
+    }
+    return 'Unknown location';
+  }
+
+  void _showErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to fetch current location.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Get.back();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+///////////////////////

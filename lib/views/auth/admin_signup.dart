@@ -68,7 +68,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
     return Consumer<SignUpNotifier>(
       builder: (context, signupNotifier, child) {
         return Scaffold(
-          appBar: RoundedAppBar(title: Text("App Bar"),),
+          appBar: RoundedAppBar(title: Text("Signup for Admin",style: TextStyle(color: Colors.white),),),
             body: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
             child: SingleChildScrollView(
@@ -76,7 +76,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Heading(
-                    text: 'Welcome to JobHub!',
+                    text: 'Welcome to My App',
                     color: Color(kDark.value),
 
                     fontSize: 30,
@@ -100,7 +100,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Color(kGrey.value),
-                                    hintText: 'Admin Name',
+                                    hintText: "Company's Name",
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(color: Colors.blue),
                                       borderRadius: BorderRadius.circular(10),
@@ -112,7 +112,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "User Name cannot be empty";
+                                      return "Company's Name cannot be empty";
                                     }
 
                                     return null;
@@ -126,7 +126,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Color(kGrey.value),
-                                    hintText: 'Email',
+                                    hintText: "Company's email",
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(color: Colors.blue),
                                       borderRadius: BorderRadius.circular(10),
@@ -138,7 +138,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "Email cannot be empty";
+                                      return "Company's email cannot be empty";
                                     }
                                     if (!RegExp(r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]")
                                         .hasMatch(value)) {
@@ -155,7 +155,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
                                   decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Color(kGrey.value),
-                                    hintText: 'Phone Number',
+                                    hintText: 'Official Number',
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(color: Colors.blue),
                                       borderRadius: BorderRadius.circular(10),
@@ -167,7 +167,7 @@ class _AdminSignUp_ScreenState extends State<AdminSignUp_Screen> {
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "Phone Number cannot be empty";
+                                      return "Official Number cannot be empty";
                                     }
                                     // Add more validation if needed
                                     return null;

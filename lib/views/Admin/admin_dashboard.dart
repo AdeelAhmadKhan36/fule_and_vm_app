@@ -2,11 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
 import 'package:fule_and_vm_app/views/common/reuse_able_text.dart';
+import 'package:fule_and_vm_app/widgets/appbar.dart';
 import 'package:get/get.dart';
 class ServiceProviderDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title:"Dashboard",
+        leftIcon: Icons.menu,
+        rightIcon: Icons.notifications,
+        onLeftIconPressed: () {
+          print('Left icon pressed');
+        },
+        onRightIconPressed: () {
+          print('Right icon pressed');
+        },
+        bacgroundColor:Colors.indigo,
+
+      ),
       body: Column(
         children: [
           Expanded(
@@ -32,7 +46,7 @@ class ServiceProviderDashboard extends StatelessWidget {
                         ),
                         const SizedBox(width: 20),
                         Expanded(
-                          child: Column(
+                          child:Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

@@ -1,5 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
+import 'package:fule_and_vm_app/views/Location_Screen.dart';
+import 'package:fule_and_vm_app/views/vehicle_maintenance/maintenance_homepage.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:fule_and_vm_app/widgets/appbar.dart';
 import 'package:fule_and_vm_app/widgets/mapwithSearchbar.dart';
@@ -8,19 +14,26 @@ import 'package:fule_and_vm_app/views/fule_dilevery/Order_Conformation_Scree.dar
 import 'views/vehicle_maintenance/vehicle_main.dart';
 
 class Home_Screen extends StatefulWidget {
-
-  Home_Screen({Key? key}): super(key: key);
+  Home_Screen({Key? key, required String selectedLocationName}) : super(key: key);
 
   @override
   State<Home_Screen> createState() => _Home_ScreenState();
 }
 
 class _Home_ScreenState extends State<Home_Screen> {
+  bool isSelectedPetrol = false;
+  bool isSelectedDiesel = false;
+  bool isSelectedEngineOil = false;
   int? selectedQuantity;
   DateTime? selectedDate;
   String? selectedTimeSlot1;
   String? selectedTimeSlot2;
+  String? _selectedLocationName;
   String? selectedFuelType;
+  Position? _selectedLocation;
+  String locationText = "Mansehra KPK Pakistan"; // Default location text
+
+  String ?userName; // Add a variable to hold the user's name
 
   final List<int> quantities = List.generate(10, (index) => index + 1);
 
@@ -42,7 +55,52 @@ class _Home_ScreenState extends State<Home_Screen> {
     return selectedFuelType != null &&
         selectedQuantity != null &&
         selectedDate != null &&
-        (selectedTimeSlot1 != null || selectedTimeSlot2 != null);
+        (selectedTimeSlot1 != null || selectedTimeSlot2 != null) &&
+        (isSelectedPetrol || isSelectedDiesel || isSelectedEngineOil);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments;
+    if (args != null) {
+      _selectedLocation = args['position'];
+      _selectedLocationName = args['name'];
+      if (_selectedLocationName != null) {
+        locationText = _selectedLocationName!;
+      }
+    }
+    _fetchUserName(); // Fetch the user's name
+  }
+
+  Future<void> _fetchUserName() async {
+    try {
+      FirebaseAuth auth = FirebaseAuth.instance;
+      User? user = auth.currentUser;
+      if (user != null) {
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+        CollectionReference usersCollection = firestore.collection('Users');
+        DocumentReference userDocRef = usersCollection.doc(user.uid);
+        DocumentSnapshot userDoc = await userDocRef.get();
+
+        if (userDoc.exists) {
+          String name = userDoc['name'];
+          setState(() {
+            userName = name;
+          });
+        }
+      }
+    } catch (e) {
+      print('Error fetching User Name: $e');
+    }
+  }
+
+
+
+  void updateLocationText(String? selectedLocationName) {
+    setState(() {
+      locationText = selectedLocationName ?? "Default Location";
+    });
   }
 
   @override
@@ -67,7 +125,7 @@ class _Home_ScreenState extends State<Home_Screen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Heading(
-                text: 'Welcome Adeel',
+                text: 'Welcome $userName', // Display the user's name
                 color: Color(blackcolr.value),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -82,15 +140,120 @@ class _Home_ScreenState extends State<Home_Screen> {
                   ),
                   const SizedBox(width: 4),
                   ReusableText(
-                    text:
-                    "Location",
+                    text: locationText,
                     color: Colors.grey,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.edit_location),
+                    onPressed: () async {
+                      final result = await Get.to(LocationScreen());
+                      if (result != null) {
+                        setState(() {
+                          _selectedLocation = result['position'];
+                          _selectedLocationName = result['name'];
+                          updateLocationText(_selectedLocationName);
+                        });
+                      }
+                    },
                   ),
                 ],
               ),
               const SizedBox(height: 20),
               MapWithSearchBar(),
               const SizedBox(height: 20),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                height: 250,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Choose the Option',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          OptionIcon(
+                            icon: Icons.electric_car,
+                            title: "Maintenance",
+                            color: Color(Maincolor.value),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>vehiclemaintenance_home()),
+                              );
+                            },
+                          ),
+                          OptionIcon(
+                            icon: Icons.local_gas_station_outlined,
+                            title: "Petrol",
+                            color: isSelectedPetrol ? Color(kPrimaryColor.value): Color(Whitecolr.value),
+                            onPressed: () {
+                              setState(() {
+                                isSelectedPetrol = !isSelectedPetrol;
+                                if (isSelectedPetrol) {
+                                  isSelectedDiesel = false;
+                                  isSelectedEngineOil = false;
+                                  selectedFuelType = "Petrol";
+                                }
+                              });
+                            },
+                          ),
+                          OptionIcon(
+                            icon: Icons.bike_scooter,
+                            title: "Diesel",
+                            color: isSelectedDiesel ? Color(kPrimaryColor.value) : Color(Whitecolr.value),
+                            onPressed: () {
+                              setState(() {
+                                isSelectedDiesel = !isSelectedDiesel;
+                                if (isSelectedDiesel) {
+                                  isSelectedPetrol = false;
+                                  isSelectedEngineOil = false;
+                                  selectedFuelType = "Diesel";
+                                }
+                              });
+                            },
+                          ),
+                          OptionIcon(
+                            icon: Icons.directions_walk,
+                            title: "Engine Oil",
+                            color: isSelectedEngineOil ? Color(kPrimaryColor.value) : Color(Whitecolr.value),
+                            onPressed: () {
+                              setState(() {
+                                isSelectedEngineOil = !isSelectedEngineOil;
+                                if (isSelectedEngineOil) {
+                                  isSelectedPetrol = false;
+                                  isSelectedDiesel = false;
+                                  selectedFuelType = "Engine Oil";
+                                }
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(16.0),
                 height: 250,
@@ -171,10 +334,12 @@ class _Home_ScreenState extends State<Home_Screen> {
                                 },
                               );
                             },
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                "Quantity (Lts)",
-                                style: TextStyle(
+                                selectedQuantity != null
+                                    ? '${selectedQuantity!} Liters'
+                                    : "Quantity (Lts)",
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black,
@@ -223,14 +388,6 @@ class _Home_ScreenState extends State<Home_Screen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: Color(kGrey.value)),
-                  boxShadow: [
-                    const BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,13 +496,14 @@ class _Home_ScreenState extends State<Home_Screen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => OrderScreen(
-                          selectedFuelType: selectedFuelType!,
-                          selectedQuantity: selectedQuantity!,
-                          selectedDate: selectedDate!,
-                          selectedTimeSlot:
-                          selectedTimeSlot1 ?? selectedTimeSlot2!,
-                        )),
+                      builder: (context) => OrderScreen(
+                        selectedFuelType: selectedFuelType!,
+                        selectedQuantity: selectedQuantity!,
+                        selectedDate: selectedDate!,
+                        selectedTimeSlot: selectedTimeSlot1 ?? selectedTimeSlot2!,
+                        selectedLocationName: _selectedLocationName, // Pass selectedLocation here
+                      ),
+                    ),
                   );
                 }
                     : null,
@@ -353,24 +511,25 @@ class _Home_ScreenState extends State<Home_Screen> {
                   height: 60,
                   width: 400,
                   decoration: BoxDecoration(
-                    color: Color(kPrimaryColor.value),
+                    color: isOrderButtonEnabled
+                        ? Color(kPrimaryColor.value)
+                        : Colors.grey, // Change color when button is disabled
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                      child: Text(
-                        isOrderButtonEnabled
-                            ? "Order"
-                            : "Please select all required items to proceed",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: isOrderButtonEnabled
-                              ? Colors.white
-                              : Colors.white,
-                        ),
-                      )),
+                    child: Text(
+                      isOrderButtonEnabled
+                          ? "Order"
+                          : "Please select all required items to proceed",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),

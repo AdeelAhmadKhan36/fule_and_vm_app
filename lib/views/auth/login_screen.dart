@@ -11,6 +11,7 @@ import 'package:fule_and_vm_app/const.dart';
 import 'package:fule_and_vm_app/controllers/login_provider.dart';
 import 'package:fule_and_vm_app/home_screen.dart';
 import 'package:fule_and_vm_app/utils/utils.dart';
+import 'package:fule_and_vm_app/views/Location_Screen.dart';
 import 'package:fule_and_vm_app/views/auth/admin_signup.dart';
 import 'package:fule_and_vm_app/views/auth/forgot_password.dart';
 import 'package:fule_and_vm_app/views/auth/usersignup_screen.dart';
@@ -19,6 +20,8 @@ import 'package:fule_and_vm_app/widgets/Round_button.dart';
 import 'package:fule_and_vm_app/widgets/app.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+
+import '../Admin/admin_profile.dart';
 
 class Login_Screen extends StatefulWidget {
   const Login_Screen({Key? key}) : super(key: key);
@@ -172,7 +175,7 @@ class _Login_ScreenState extends State<Login_Screen> {
 
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => Home_Screen()),
+                MaterialPageRoute(builder: (context) =>LocationScreen()),
               );
 
 
@@ -184,7 +187,14 @@ class _Login_ScreenState extends State<Login_Screen> {
             if (adminExists) {
               // Move to Admin Screen
 
+
               Utils().toastMessage("Login Successful");
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) =>LocationScreen()),
+              );
+
+
             } else {
               Utils().toastMessage("Admin not found. Please sign up.");
             }
@@ -216,7 +226,7 @@ class _Login_ScreenState extends State<Login_Screen> {
       builder: (context, loginNotifier, child) {
         return Scaffold(
           appBar: RoundedAppBar(
-            title: Text("App Bar",
+            title: Text("Login",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

@@ -14,6 +14,8 @@ const kPrimaryColors = Colors.blueAccent;
 const kLightPink = Colors.pinkAccent;
 const kLightGreen = Colors.lightGreen;
 
+Color primaryColor = Color(0xffff8733);
+
 /////////////
 
 const kRed=Colors.red;

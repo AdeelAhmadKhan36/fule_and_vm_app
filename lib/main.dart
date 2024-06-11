@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/controllers/SignUp_Provider.dart';
 import 'package:fule_and_vm_app/controllers/login_provider.dart';
+import 'package:fule_and_vm_app/controllers/profile_updateProvider.dart';
 import 'package:fule_and_vm_app/home_screen.dart';
 import 'package:fule_and_vm_app/views/Admin/admin_dashboard.dart';
+import 'package:fule_and_vm_app/views/Admin/admin_profile.dart';
 import 'package:fule_and_vm_app/views/Location_Screen.dart';
 import 'package:fule_and_vm_app/views/auth/login_screen.dart';
 import 'package:fule_and_vm_app/views/splash_Screen.dart';
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => loginNotifier()),
         ChangeNotifierProvider(create: (_) => SignUpNotifier()),
+        ChangeNotifierProvider(create: (_) => changeprofileNotifier()),
 
       ],
       child: LayoutBuilder(
@@ -47,7 +50,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
 
             ),
-            home: Login_Screen()  ,
+            home:Login_Screen(),
           );
         } ,
 
