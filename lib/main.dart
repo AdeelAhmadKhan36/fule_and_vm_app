@@ -7,10 +7,12 @@ import 'package:fule_and_vm_app/views/Admin/admin_dashboard.dart';
 import 'package:fule_and_vm_app/views/Admin/admin_profile.dart';
 import 'package:fule_and_vm_app/views/Location_Screen.dart';
 import 'package:fule_and_vm_app/views/auth/login_screen.dart';
+import 'package:fule_and_vm_app/views/on_boarding_screen/onboarding_screen.dart';
 import 'package:fule_and_vm_app/views/splash_Screen.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'controllers/on_boarding_providers.dart';
 import 'firebase_options.dart';
 
 
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => loginNotifier()),
         ChangeNotifierProvider(create: (_) => SignUpNotifier()),
         ChangeNotifierProvider(create: (_) => changeprofileNotifier()),
+        ChangeNotifierProvider(create: (_) => onBoard_Notifier()),
 
       ],
       child: LayoutBuilder(
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
 
             ),
-            home:Login_Screen(),
+            home:const OnBoarding_Screen(),
           );
         } ,
 
