@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
 import 'package:fule_and_vm_app/controllers/on_boarding_providers.dart';
 import 'package:fule_and_vm_app/home_screen.dart';
+import 'package:fule_and_vm_app/views/auth/login_screen.dart';
 import 'package:fule_and_vm_app/views/common/reuse_able_text.dart';
 import 'package:fule_and_vm_app/views/on_boarding_screen/page_one.dart';
 import 'package:fule_and_vm_app/views/on_boarding_screen/page_three.dart';
@@ -80,7 +81,7 @@ class _OnBoarding_ScreenState extends State<OnBoarding_Screen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Home_Screen(selectedLocationName:""),
+                            builder: (context) => Login_Screen(),
                           ),
                         );
                       },
@@ -99,8 +100,7 @@ class _OnBoarding_ScreenState extends State<OnBoarding_Screen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Home_Screen(selectedLocationName:"",
-                            ),
+                              builder: (context) => Login_Screen()
                           )
                           );
                         } else {

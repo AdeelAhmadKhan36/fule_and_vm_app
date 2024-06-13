@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fule_and_vm_app/const.dart';
 import 'package:fule_and_vm_app/views/Location_Screen.dart';
 import 'package:fule_and_vm_app/views/vehicle_maintenance/maintenance_homepage.dart';
+import 'package:fule_and_vm_app/widgets/sidebar.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -21,6 +24,7 @@ class Home_Screen extends StatefulWidget {
 }
 
 class _Home_ScreenState extends State<Home_Screen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); //
   bool isSelectedPetrol = false;
   bool isSelectedDiesel = false;
   bool isSelectedEngineOil = false;
@@ -106,17 +110,21 @@ class _Home_ScreenState extends State<Home_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey, // Assign the GlobalKey to the Scaffold
       appBar: CustomAppBar(
         title: 'Home',
         leftIcon: Icons.menu,
         rightIcon: Icons.notifications,
         onLeftIconPressed: () {
-          print('Left icon pressed');
+          _scaffoldKey.currentState?.openDrawer();
+          print("Menu Left Icon Pressed");
         },
         onRightIconPressed: () {
-          print('Right icon pressed');
+          print("Menu Left Icon Pressed");
+
         },
       ),
+      drawer: Sidebar(), //
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
@@ -256,7 +264,7 @@ class _Home_ScreenState extends State<Home_Screen> {
               const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(16.0),
-                height: 250,
+                height: 200,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
@@ -269,115 +277,120 @@ class _Home_ScreenState extends State<Home_Screen> {
                     ),
                   ],
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Choose your requirement for fuel',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Choose your requirement for fuel',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Container(
-                          width: 160,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            color: Color(Maincolor.value),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext builder) {
-                                  return Container(
-                                    height: MediaQuery.of(context)
-                                        .copyWith()
-                                        .size
-                                        .height /
-                                        3,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          'Select Quantity (Lts)',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Expanded(
-                                          child: ListView.builder(
-                                            itemCount: quantities.length,
-                                            itemBuilder: (context, index) {
-                                              final quantity =
-                                              quantities[index];
-                                              return ListTile(
-                                                title: Text('$quantity Liters'),
-                                                onTap: () {
-                                                  setState(() {
-                                                    selectedQuantity = quantity;
-                                                  });
-                                                  Navigator.pop(context);
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection:Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 160,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Color(Maincolor.value),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext builder) {
+                                      return Container(
+                                        height: MediaQuery.of(context)
+                                            .copyWith()
+                                            .size
+                                            .height /
+                                            3,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                                            const Text(
+                                              'Select Quantity (Lts)',
+                                              style: TextStyle(
+                                                  fontSize:16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Expanded(
+                                              child: ListView.builder(
+                                                itemCount: quantities.length,
+                                                itemBuilder: (context, index) {
+                                                  final quantity =
+                                                  quantities[index];
+                                                  return ListTile(
+                                                    title: Text('$quantity Liters'),
+                                                    onTap: () {
+                                                      setState(() {
+                                                        selectedQuantity = quantity;
+                                                      });
+                                                      Navigator.pop(context);
+                                                    },
+                                                  );
                                                 },
-                                              );
-                                            },
-                                          ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                            child: Center(
-                              child: Text(
-                                selectedQuantity != null
-                                    ? '${selectedQuantity!} Liters'
-                                    : "Quantity (Lts)",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
+                                child: Center(
+                                  child: Text(
+                                    selectedQuantity != null
+                                        ? '${selectedQuantity!} Liters'
+                                        : "Quantity (Lts)",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Container(
-                          width: 160,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            color: Color(Whitecolr.value),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              _selectDate(context);
-                            },
-                            child: Center(
-                              child: Text(
-                                selectedDate != null
-                                    ? selectedDate!.toString().substring(0, 10)
-                                    : "Date",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
+                            const SizedBox(width: 10),
+                            Container(
+                              width: 160,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Color(Whitecolr.value),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.black),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  _selectDate(context);
+                                },
+                                child: Center(
+                                  child: Text(
+                                    selectedDate != null
+                                        ? selectedDate!.toString().substring(0, 10)
+                                        : "Date",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -400,91 +413,94 @@ class _Home_ScreenState extends State<Home_Screen> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Container(
-                          width: 160,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Color(Maincolor.value),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: DropdownButton<String>(
-                            value: selectedTimeSlot1,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedTimeSlot1 = newValue!;
-                              });
-                            },
-                            items: <String>[
-                              '9:00 AM - 12:00 PM',
-                              '12:00 PM - 3:00 PM',
-                              '3:00 PM - 6:00 PM',
-                              // Add more time slot options as needed
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 30, left: 20),
-                                    child: Text(
-                                      value,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 160,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color: Color(Maincolor.value),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: DropdownButton<String>(
+                              value: selectedTimeSlot1,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedTimeSlot1 = newValue!;
+                                });
+                              },
+                              items: <String>[
+                                '9:00 AM - 12:00 PM',
+                                '12:00 PM - 3:00 PM',
+                                '3:00 PM - 6:00 PM',
+                                // Add more time slot options as needed
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 30, left: 20),
+                                      child: Text(
+                                        value,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Container(
-                          width: 160,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Color(Whitecolr.value),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: DropdownButton<String>(
-                            value: selectedTimeSlot2,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedTimeSlot2 = newValue!;
-                              });
-                            },
-                            items: <String>[
-                              '9:00 AM - 12:00 PM',
-                              '12:00 PM - 3:00 PM',
-                              '3:00 PM - 6:00 PM',
-                              // Add more time slot options as needed
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 30, left: 20),
-                                    child: Text(
-                                      value,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                          const SizedBox(width: 10),
+                          Container(
+                            width: 160,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              color: Color(Whitecolr.value),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: DropdownButton<String>(
+                              value: selectedTimeSlot2,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  selectedTimeSlot2 = newValue!;
+                                });
+                              },
+                              items: <String>[
+                                '9:00 AM - 12:00 PM',
+                                '12:00 PM - 3:00 PM',
+                                '3:00 PM - 6:00 PM',
+                                // Add more time slot options as needed
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 30, left: 20),
+                                      child: Text(
+                                        value,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

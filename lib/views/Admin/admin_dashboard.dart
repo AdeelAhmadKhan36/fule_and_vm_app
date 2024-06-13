@@ -1,30 +1,39 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
 import 'package:fule_and_vm_app/views/Admin/fuel_request.dart';
 import 'package:fule_and_vm_app/views/common/reuse_able_text.dart';
 import 'package:fule_and_vm_app/widgets/appbar.dart';
+import 'package:fule_and_vm_app/widgets/sidebar.dart'; // Import the sidebar widget
 import 'package:get/get.dart';
-class ServiceProviderDashboard extends StatelessWidget {
 
-  final adminui=  FirebaseAuth.instance.currentUser;
+class ServiceProviderDashboard extends StatefulWidget {
+  @override
+  State<ServiceProviderDashboard> createState() => _ServiceProviderDashboardState();
+}
+
+class _ServiceProviderDashboardState extends State<ServiceProviderDashboard> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+ // Define the GlobalKey
+  final adminui = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey, // Assign the key to the Scaffold
       appBar: CustomAppBar(
-        title:"Dashboard",
+        title: "Dashboard",
         leftIcon: Icons.menu,
         rightIcon: Icons.notifications,
         onLeftIconPressed: () {
-          print('Left icon pressed');
+          _scaffoldKey.currentState?.openDrawer(); // Use the key to open the drawer
         },
         onRightIconPressed: () {
           print('Right icon pressed');
         },
-        bacgroundColor:Colors.indigo,
-
+        bacgroundColor: Colors.indigo,
       ),
+      drawer: Sidebar(), // Add the sidebar here
       body: Column(
         children: [
           Expanded(
@@ -50,7 +59,7 @@ class ServiceProviderDashboard extends StatelessWidget {
                         ),
                         const SizedBox(width: 20),
                         Expanded(
-                          child:Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -94,7 +103,7 @@ class ServiceProviderDashboard extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  Get.to(FuelRequestScreen(currentUid:"adminui",));
+                                  Get.to(FuelRequestScreen(currentUid: adminui!.uid));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: kLightPink,

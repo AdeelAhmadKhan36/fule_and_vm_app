@@ -113,6 +113,11 @@ class _LocationScreenState extends State<LocationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Select Your Location'),
+        
+        leading: IconButton(onPressed: (){
+
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back)),
       ),
       body: WebView(
         initialUrl: 'https://www.google.com/maps',

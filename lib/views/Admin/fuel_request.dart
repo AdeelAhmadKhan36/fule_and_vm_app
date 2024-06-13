@@ -34,23 +34,17 @@ class FuelRequestScreen extends StatelessWidget {
               child: Text('Error: ${snapshot.error}'),
             );
           }
-          if (snapshot.data!.docs.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(
               child: Text('No fuel requests found.'),
             );
           }
-
-          // Print the fetched data for debugging
-          snapshot.data!.docs.forEach((doc) {
-            print('Document data: ${doc.data()}');
-          });
 
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var orderData = snapshot.data!.docs[index].data() as Map<String, dynamic>;
 
-              // Ensure the orderData contains all the required fields
               if (orderData.containsKey('selectedFuelType') &&
                   orderData.containsKey('selectedQuantity') &&
                   orderData.containsKey('selectedDate') &&
@@ -72,27 +66,52 @@ class FuelRequestScreen extends StatelessWidget {
   }
 
   Widget _buildFuelRequestCard(Map<String, dynamic> orderData) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Fuel Type: ${orderData['selectedFuelType']}',
-              style: TextStyle(fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        Card(
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          elevation: 4,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Table(
+              defaultColumnWidth: IntrinsicColumnWidth(),
+              border: TableBorder.all(color: Colors.grey),
+              children: [
+                _buildTableRow('Fuel Type', orderData['selectedFuelType']),
+                _buildTableRow('Quantity', '${orderData['selectedQuantity']} Liters'),
+                _buildTableRow('Date', (orderData['selectedDate'] as Timestamp).toDate().toLocal().toString()),
+                _buildTableRow('Time Slot', orderData['selectedTimeSlot']),
+                _buildTableRow('Delivery Location', orderData['selectedLocationName']),
+                _buildTableRow('Payment Method', orderData['paymentMethod']),
+              ],
             ),
-            SizedBox(height: 8),
-            Text('Quantity: ${orderData['selectedQuantity']} Liters'),
-            Text('Date: ${orderData['selectedDate']}'),
-            Text('Time Slot: ${orderData['selectedTimeSlot']}'),
-            Text('Delivery Location: ${orderData['selectedLocationName']}'),
-            Text('Payment Method: ${orderData['paymentMethod']}'),
-          ],
+          ),
         ),
-      ),
+
+
+        Text("Order by User.",style: TextStyle(fontWeight: FontWeight.bold),)
+      ],
     );
+  }
+
+  TableRow _buildTableRow(String title, String value) {
+    return TableRow(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(value),
+        ),
+
+      ],
+    );
+
+
   }
 }

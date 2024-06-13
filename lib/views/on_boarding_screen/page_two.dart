@@ -17,10 +17,15 @@ class Page_Two extends StatelessWidget {
             decoration: BoxDecoration(
               color: Color(Maincolor.value),
               image: const DecorationImage(
-                  image: AssetImage('Assets/Images/p11-removebg.png'),
+                  image: AssetImage(''),
                   fit: BoxFit.fill,
               ),
             ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(),
+            child: Center(child: Image.asset("Assets/Images/p11-removebg.png")),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 60),
@@ -29,14 +34,14 @@ class Page_Two extends StatelessWidget {
                 Center(
                     child: ReusableText(
                       text: 'Fuel Up Securely',
-                      fontSize: 32,
+                      fontSize:25,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     )),
                 Center(
                     child: ReusableText(
                       text: 'With Our Expertise',
-                      fontSize: 32,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     )),
@@ -51,18 +56,18 @@ class Page_Two extends StatelessWidget {
           ),
 
           const Padding(
-            padding: EdgeInsets.only(left: 30,right: 30,top: 700),
+            padding: EdgeInsets.only(left: 30,right: 30,top: 600),
             child: Text.rich(
               TextSpan(
                 children: <TextSpan>[
                   TextSpan(
                     text: 'Experience hassle-free fuel delivery and expert vehicle maintenance services wherever you are.\n',
-                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500),
+                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),
                   ),
                   TextSpan(
                     text: 'We ensure your vehicle is always ready, so you can focus on your journey.',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold
                     ),
                   ),

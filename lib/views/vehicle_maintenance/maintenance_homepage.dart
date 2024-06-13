@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fule_and_vm_app/const.dart';
 import 'package:fule_and_vm_app/widgets/app.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class vehiclemaintenance_home extends StatefulWidget {
-  const vehiclemaintenance_home({super.key});
+  const vehiclemaintenance_home({Key? key}) : super(key: key);
 
   @override
   State<vehiclemaintenance_home> createState() => _vehiclemaintenance_homeState();
 }
+
+
 
 class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
   final _offersPageController = PageController();
@@ -17,11 +18,15 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: RoundedAppBar(title: Text(
-        "Vehicle Maintenance",
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),),
+      appBar: RoundedAppBar(
+        title: Text(
+          "Vehicle Maintenance",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
       backgroundColor: primaryColor,
       body: Padding(
           padding: const EdgeInsets.only(top: 30,),
@@ -146,10 +151,10 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
                           child: PageView(
                             controller: _offersPageController,
                             children: [
-                              _buildPageContainer(Colors.grey.shade200, "Page 1"),
-                              _buildPageContainer(Colors.grey.shade200, "Page 2"),
-                              _buildPageContainer(Colors.grey.shade200, "Page 3"),
-                              _buildPageContainer(Colors.grey.shade200, "Page 4"),
+                              _buildPageContainer(screenWidth, Colors.grey.shade200, "Page 1"),
+                              _buildPageContainer(screenWidth, Colors.grey.shade200, "Page 2"),
+                              _buildPageContainer(screenWidth, Colors.grey.shade200, "Page 3"),
+                              _buildPageContainer(screenWidth, Colors.grey.shade200, "Page 4"),
                             ],
                           ),
                         ),
@@ -210,10 +215,10 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
                           child: PageView(
                             controller: _servicesPageController,
                             children: [
-                              _buildServicePageContainer(Colors.grey.shade200, "Page 1"),
-                              _buildServicePageContainer(Colors.grey.shade200, "Page 2"),
-                              _buildServicePageContainer(Colors.grey.shade200, "Page 3"),
-                              _buildServicePageContainer(Colors.grey.shade200, "Page 4"),
+                              _buildServicePageContainer(screenWidth, Colors.grey.shade200, "Page 1"),
+                              _buildServicePageContainer(screenWidth, Colors.grey.shade200, "Page 2"),
+                              _buildServicePageContainer(screenWidth, Colors.grey.shade200, "Page 3"),
+                              _buildServicePageContainer(screenWidth, Colors.grey.shade200, "Page 4"),
                             ],
                           ),
                         ),
@@ -242,97 +247,91 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
     );
   }
 
-  Widget _buildPageContainer(Color color, String text) {
+  Widget _buildPageContainer(double screenWidth, Color color, String text) {
     return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(right: 10),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20,top: 10,bottom: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 85,
-                        height: 20,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                          borderRadius: BorderRadius.circular(20)
-                        ),
-                        child: const Center(
-                          child: Text("Today's Offers", style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold
-                          ),),
-                        ),
-                      ),
-                      const SizedBox(height: 15,),
-                      const Text("Get Special Offer", style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold
+        width: screenWidth * 0.7,
+        margin: const EdgeInsets.only(right: 10),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 85,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Center(
+                      child: Text("Today's Offers", style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold
                       ),),
-                      const SizedBox(height: 10,),
-                      const Row(
-                        children: [
-                          Text("Up to"),
-                          Text("20%",style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold
-                          ),)
-                        ],
-                      ),
-                      const SizedBox(height: 03,),
-                      SingleChildScrollView(
-                        child: Container(
-                          width: 70,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(50)
-                          ),
-                          child: const Center(
-                            child: Text("Claim",style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold
-                            ),),
-                          ),
-                        ),
-                      )
-
+                    ),
+                  ),
+                  const SizedBox(height: 15,),
+                  const Text("Get Special Offer", style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold
+                  ),),
+                  const SizedBox(height: 10,),
+                  const Row(
+                    children: [
+                      Text("Up to"),
+                      Text("20%",style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold
+                      ),)
                     ],
                   ),
-                ),
-                Container(
-                  height: double.infinity,
-                  width: 160,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
+                  const SizedBox(height: 3,),
+                  SingleChildScrollView(
+                    child: Container(
+                      width: 70,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(50)
+                      ),
+                      child: const Center(
+                        child: Text("Claim",style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold
+                        ),),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: double.infinity,
+              width: screenWidth * 0.25,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage("Assets/Images/pic2.jpeg")
-                    ),
-                    color: Colors.red,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(80), bottomLeft: Radius.circular(80))
                   ),
-                )
-              ],
-            ),
-          )
-        ],
-      )
+                  color: Colors.red,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(80), bottomLeft: Radius.circular(80))
+              ),
+            )
+          ],
+        )
     );
   }
-  Widget _buildServicePageContainer(Color color, String text) {
+
+  Widget _buildServicePageContainer(double screenWidth, Color color, String text) {
     return Container(
-        width: double.infinity,
+        width: screenWidth * 0.7,
         margin: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
           color: color,
@@ -363,7 +362,7 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
             size: 30,
           ),
         ),
-        const SizedBox(height: 06,),
+        const SizedBox(height: 6,),
         Text(label,style: const TextStyle(
             fontWeight: FontWeight.bold
         ),)
@@ -371,4 +370,8 @@ class _vehiclemaintenance_homeState extends State<vehiclemaintenance_home> {
     );
   }
 }
+
+
+
+
 

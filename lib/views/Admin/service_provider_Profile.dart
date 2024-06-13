@@ -152,7 +152,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Fuel Type'),
+                                      child: Text('Fuel Type',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(
@@ -169,7 +169,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Quantity'),
+                                      child: Text('Quantity',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(
@@ -186,7 +186,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Date'),
+                                      child: Text('Date',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(
@@ -204,7 +204,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Time Slot'),
+                                      child: Text('Time Slot',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(
@@ -222,7 +222,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                       child: Container(
                                         padding: EdgeInsets.all(8.0),
                                         color: Colors.grey[200],
-                                        child: Text('Delivery Location'),
+                                        child: Text('Delivery Location',style: TextStyle(fontWeight: FontWeight.bold)),
                                       ),
                                     ),
                                     TableCell(
@@ -294,7 +294,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Email'),
+                                      child: Text('Email',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(
@@ -312,7 +312,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Phone'),
+                                      child: Text('Phone',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(
@@ -330,7 +330,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Service'),
+                                      child: Text('Service',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(
@@ -348,7 +348,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                     child: Container(
                                       padding: EdgeInsets.all(8.0),
                                       color: Colors.grey[200],
-                                      child: Text('Location'),
+                                      child: Text('Location',style: TextStyle(fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                   TableCell(

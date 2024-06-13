@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fule_and_vm_app/const.dart';
 import 'package:fule_and_vm_app/utils/utils.dart';
@@ -96,7 +97,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         child: Container(
                           padding: EdgeInsets.all(8.0),
                           color: Colors.grey[200],
-                          child: Text('Fuel Type'),
+                          child: Text('Fuel Type',style: TextStyle(fontWeight: FontWeight.bold),),
                         ),
                       ),
                       TableCell(
@@ -113,7 +114,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         child: Container(
                           padding: EdgeInsets.all(8.0),
                           color: Colors.grey[200],
-                          child: Text('Quantity'),
+                          child: Text('Quantity',style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ),
                       TableCell(
@@ -130,7 +131,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         child: Container(
                           padding: EdgeInsets.all(8.0),
                           color: Colors.grey[200],
-                          child: Text('Date'),
+                          child: Text('Date',style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ),
                       TableCell(
@@ -147,7 +148,7 @@ class _OrderScreenState extends State<OrderScreen> {
                         child: Container(
                           padding: EdgeInsets.all(8.0),
                           color: Colors.grey[200],
-                          child: Text('Time Slot'),
+                          child: Text('Time Slot',style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ),
                       TableCell(
@@ -165,7 +166,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           child: Container(
                             padding: EdgeInsets.all(8.0),
                             color: Colors.grey[200],
-                            child: Text('Delivery Location'),
+                            child: Text('Delivery Location',style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                         ),
                         TableCell(
@@ -181,7 +182,8 @@ class _OrderScreenState extends State<OrderScreen> {
               ),
               SizedBox(height: 100),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                 children: [
                   ElevatedButton(
                     onPressed: () {
@@ -193,16 +195,17 @@ class _OrderScreenState extends State<OrderScreen> {
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: isCashOnDeliverySelected ? Colors.green : Color(kPrimaryColor.value),
-                      minimumSize: Size(180, 50),
+                      minimumSize: Size(30, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: Text(
                       'Cash on Delivery',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize:14),
                     ),
                   ),
+
                   ElevatedButton(
                     onPressed: () {
                       Utils().toastMessage("Digital Payment Service Currently Unavailable");
@@ -210,14 +213,14 @@ class _OrderScreenState extends State<OrderScreen> {
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: Color(kPrimaryColor.value),
-                      minimumSize: Size(180, 50),
+                      minimumSize: Size(30, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: Text(
                       'Digital Payments',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 14),
                     ),
                   ),
                 ],

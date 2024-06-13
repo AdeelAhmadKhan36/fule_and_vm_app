@@ -38,7 +38,7 @@ class Page_Three extends StatelessWidget {
             child: Center(
               child: ReusableText(
                 text: 'Welcome to Fuel Delivery and Maintenance App',
-                fontSize: 33,
+                fontSize:25,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -47,15 +47,15 @@ class Page_Three extends StatelessWidget {
 
           // Other Content
           Positioned.fill(
-            top: 650, // Adjust this value as needed
+            top: 550, // Adjust this value as needed
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
 
 
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text.rich(
                       TextSpan(
                         children: <TextSpan>[
@@ -77,7 +77,7 @@ class Page_Three extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 10,),
+                  SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

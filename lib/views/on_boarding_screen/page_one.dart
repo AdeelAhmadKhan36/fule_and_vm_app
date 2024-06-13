@@ -20,13 +20,13 @@ class Page_One extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 150,left: 10),
+          padding: const EdgeInsets.only(top: 90,left:10,right: 10),
           child: Column(
             children: [
               Center(
                   child: ReusableText(
-                text: 'Reliable Fuel Delivery & Vehicle Maintenance',
-                fontSize: 32,
+                text: 'Reliable Fuel Delivery\n                        &\nVehicle Maintenance',
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               )),
@@ -39,13 +39,13 @@ class Page_One extends StatelessWidget {
         const Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 600),
+              padding: EdgeInsets.only(top: 600,left: 10,right: 10),
               child: Text.rich(
                 TextSpan(
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                          'We help you keep your vehicle running smoothly with our convenient fuel delivery and maintenance services\n',
+                          'We help you keep your vehicle running smoothly with our convenient fuel delivery and maintenance\n',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w500),
                     ),

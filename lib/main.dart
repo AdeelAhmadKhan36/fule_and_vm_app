@@ -9,6 +9,7 @@ import 'package:fule_and_vm_app/views/Location_Screen.dart';
 import 'package:fule_and_vm_app/views/auth/login_screen.dart';
 import 'package:fule_and_vm_app/views/on_boarding_screen/onboarding_screen.dart';
 import 'package:fule_and_vm_app/views/splash_Screen.dart';
+import 'package:fule_and_vm_app/views/vehicle_maintenance/maintenance_homepage.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
 
             ),
-            home:const OnBoarding_Screen(),
+            home:OnBoarding_Screen(),
           );
         } ,
 
